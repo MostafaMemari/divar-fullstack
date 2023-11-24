@@ -10,12 +10,11 @@ class AuthService {
   }
   async sendOTP(mobile) {
     const user = await this.#model.findOne({ mobile });
+    const now = new Date().getTime();
     const otp = {
       code: randomInt(10000, 99999),
       expiresIn: now + 1000 * 60 * 2,
     };
-    const now = new Date().getTime();
-
     if (!user) {
       const newUser = await this.#model.create({ mobile, otp });
       return newUser;
