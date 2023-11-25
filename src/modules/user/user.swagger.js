@@ -16,7 +16,6 @@
  *        properties:
  *          mobile:
  *            type: string
-
  */
 
 /**
