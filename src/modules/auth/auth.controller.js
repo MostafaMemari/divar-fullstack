@@ -3,6 +3,7 @@ const authService = require("./auth.service");
 const { AuthMessage } = require("./auth.messages");
 const { NodeEnv } = require("../../common/constant/env.enum");
 const { StatusCodes } = require("http-status-codes");
+const { CookieNames } = require("../../common/constant/cookie.enum");
 class AuthController {
   #service;
   constructor() {
@@ -25,7 +26,7 @@ class AuthController {
       const { mobile, code } = req.body;
       const token = await this.#service.checkOTP(mobile, code);
       return res
-        .cookie("access_token", token, {
+        .cookie(CookieNames.AccessToken, token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === NodeEnv.Production, // production => true
         })
@@ -39,6 +40,9 @@ class AuthController {
   }
   async logout(req, res, next) {
     try {
+      return res.clearCookie(CookieNames.AccessToken).status(StatusCodes.OK).json({
+        message: AuthMessage.LogoutSuccessfully,
+      });
     } catch (error) {
       next(error);
     }

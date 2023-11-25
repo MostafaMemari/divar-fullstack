@@ -51,7 +51,6 @@
 
 /**
  * @swagger
- *
  * /auth/check-otp:
  *  post:
  *    summary: check otp for login user
@@ -65,6 +64,17 @@
  *        application/josn:
  *          schema:
  *            $ref: "#/components/schemas/CheckOTP"
+ *    responses:
+ *      200:
+ *        description: success
+ */
+/**
+ * @swagger
+ * /auth/logout:
+ *  get:
+ *    summary: logout user
+ *    tags:
+ *      - Auth
  *    responses:
  *      200:
  *        description: success
