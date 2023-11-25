@@ -5,9 +5,10 @@ const { AuthMessage } = require("./auth.messages");
 const { randomInt } = require("crypto");
 const jwt = require("jsonwebtoken");
 class AuthService {
-  #model = UserModel;
+  #model;
   constructor() {
     autoBind(this);
+    this.#model = UserModel;
   }
   async sendOTP(mobile) {
     const user = await this.#model.findOne({ mobile });
