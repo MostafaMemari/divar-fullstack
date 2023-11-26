@@ -1,5 +1,4 @@
 const autoBind = require("auto-bind");
-const { CategoryModel } = require("./category.model");
 const categoryService = require("./category.service");
 const { CategoryMessage } = require("./category.message");
 const { StatusCodes } = require("http-status-codes");

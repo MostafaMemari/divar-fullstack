@@ -60,7 +60,7 @@
 
 /**
  * @swagger
- * /option/{categoryId}:
+ * /option/by-category/{categoryId}:
  *  get:
  *    summary: get All options of category
  *    tags:
@@ -69,6 +69,34 @@
  *      - in: path
  *        name: categoryId
  *        type: string
+ *    responses:
+ *      200:
+ *        description: success
+ */
+
+/**
+ * @swagger
+ * /option/{id}:
+ *  get:
+ *    summary: get option by id
+ *    tags:
+ *      - Option
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: success
+ */
+
+/**
+ * @swagger
+ * /option/:
+ *  get:
+ *    summary: get all options
+ *    tags:
+ *      - Option
  *    responses:
  *      200:
  *        description: success
