@@ -3,16 +3,12 @@ const { OptionModel } = require("./option.model");
 const createHttpError = require("http-errors");
 const { OptionMessage } = require("./option.message");
 const { default: slugify } = require("slugify");
-const { CategoryModel } = require("../category/category.model");
-const { CategoryMessage } = require("../category/category.message");
 
 class OptionService {
   #model;
-  #categoryModel;
   constructor() {
     autoBind(this);
     this.#model = OptionModel;
-    this.#categoryModel = CategoryModel;
   }
 
   async find() {
@@ -21,6 +17,10 @@ class OptionService {
   }
   async findById(id) {
     return await this.checkExistById(id);
+  }
+  async removeById(id) {
+    await this.checkExistById(id);
+    return await this.#model.deleteOne({ _id: id });
   }
   async findByCategoryId(category) {
     return await this.#model.find({ category }).populate([{ path: "category", select: { name: 1, slug: 1 } }]);
@@ -76,9 +76,9 @@ class OptionService {
     return option;
   }
   async checkExistById(id) {
-    const category = await this.#categoryModel.findById(id);
-    if (!category) throw createHttpError.NotFound(CategoryMessage.NotFound);
-    return category;
+    const option = await this.#model.findById(id);
+    if (!option) throw createHttpError.NotFound(OptionMessage.NotFound);
+    return option;
   }
   async alreadyExistByCategoryAndKey(key, category) {
     const isExist = await this.#model.findOne({ category, key });

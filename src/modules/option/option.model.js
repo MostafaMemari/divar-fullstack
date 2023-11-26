@@ -4,7 +4,7 @@ const OptionSchema = new Schema(
   {
     title: { type: String, required: true },
     key: { type: String, required: true },
-    type: { type: String, enum: ["nmuber", "string", "array", "boolean"] },
+    type: { type: String, enum: ["number", "string", "array", "boolean"] },
     enum: { type: Array, default: [] },
     guid: { type: String, required: false },
     category: { type: Types.ObjectId, ref: "Category", required: true },
