@@ -40,7 +40,7 @@
 
 /**
  * @swagger
- * /option:
+ * /option/:
  *  post:
  *    summary: create new option for category
  *    tags:

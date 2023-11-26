@@ -1,8 +1,7 @@
 const autoBind = require("auto-bind");
-const optionService = require("./option.service");
 const { StatusCodes } = require("http-status-codes");
 const { OptionMessage } = require("./option.message");
-
+const optionService = require("./option.service");
 class OptionController {
   #service;
   constructor() {
@@ -11,6 +10,11 @@ class OptionController {
   }
   async create(req, res, next) {
     try {
+      const { title, key, type, enum: list, guid, category } = req.body;
+      await this.#service.create({ title, key, type, enum: list, guid, category });
+      return res.status(StatusCodes.CREATED).json({
+        message: OptionMessage.created,
+      });
     } catch (error) {
       next(error);
     }
