@@ -10,8 +10,8 @@ class OptionController {
   }
   async create(req, res, next) {
     try {
-      const { title, key, type, enum: list, guid, category } = req.body;
-      await this.#service.create({ title, key, type, enum: list, guid, category });
+      const { title, key, type, enum: list, guid, category, required } = req.body;
+      await this.#service.create({ title, key, type, enum: list, guid, category, required });
       return res.status(StatusCodes.CREATED).json({
         message: OptionMessage.created,
       });
