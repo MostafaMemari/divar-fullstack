@@ -1,5 +1,6 @@
 const CategoryMessage = Object.freeze({
-  created: "category created successfully",
+  Created: "category created successfully",
+  Deleted: "category deleted successfully",
   NotFound: "category not found",
   AlreadyExist: "category already exist",
 });

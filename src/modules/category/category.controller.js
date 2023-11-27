@@ -14,7 +14,18 @@ class CategoryController {
       const { name, icon, slug, parent } = req.body;
       await this.#service.create({ name, icon, slug, parent });
       return res.status(StatusCodes.CREATED).json({
-        message: CategoryMessage.created,
+        message: CategoryMessage.Created,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async remove(req, res, next) {
+    try {
+      const { id } = req.params;
+      await this.#service.remove(id);
+      return res.json({
+        message: CategoryMessage.Deleted,
       });
     } catch (error) {
       next(error);
