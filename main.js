@@ -6,6 +6,7 @@ const { NotFoundHandler } = require("./src/common/exception/not-found.handler");
 const { AllExceptionHandler } = require("./src/common/exception/all-exception.handler");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const expressEjsLayouts = require("express-ejs-layouts");
 
 dotenv.config();
 
@@ -18,6 +19,11 @@ async function main() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
+
+  app.use(express.static("public"));
+  app.use(expressEjsLayouts);
+  app.set("view engine", "ejs");
+  app.set("layout", "./layouts/panel/main.ejs");
 
   app.use(mainRouter);
 
