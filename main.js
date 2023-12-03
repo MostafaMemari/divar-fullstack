@@ -15,7 +15,7 @@ async function main() {
   const port = process.env.PORT;
   require("./src/config/mongoose.config");
 
-  app.use(morgan("dev"));
+  // app.use(morgan("dev"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
