@@ -39,7 +39,14 @@ class PostController {
   }
   async create(req, res, next) {
     try {
+      const { name, icon, slug, parent } = req.body;
+      console.log(req.body);
+      await this.#service.create({ name, icon, slug, parent });
+      return res.status(StatusCodes.CREATED).json({
+        message: PostMessage.Created,
+      });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
