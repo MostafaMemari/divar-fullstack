@@ -17,7 +17,7 @@ class PostService {
     return options;
   }
   async create(dto) {
-    // return await this.#model.create(dto);
+    return await this.#model.create(dto);
   }
 }
 

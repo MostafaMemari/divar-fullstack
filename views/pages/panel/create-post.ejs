@@ -18,9 +18,10 @@
         <%})%>
       </ul>
       <%}%> <%}else{%>
-      <form action="/post/create" method="post" enctype="multipart/form-data">
+      <form action="/post/create" method="post" enctype="multipart/form-data; charest=utf-8">
         <input type="hidden" name="lat" id="lat" />
         <input type="hidden" name="lng" id="lng" />
+        <input type="hidden" name="category" id="category" , value="<%=category%>" />
         <div class="p-2">
           <label>انتخاب آدرس</label>
           <div id="map-element" class="w-100" style="height: 300px"></div>
@@ -45,7 +46,7 @@
         <label><%=option.title%><%=option.required? " * ": ""%></label>
         <%if(option.type === "array"){%>
         <div class="p-2">
-          <select name="<%=option.key%>" class="form-select">
+          <select name="<%=option.title%>" class="form-select">
             <%option.enum.forEach(item => {%>
             <option value="<%=item%>"><%=item%></option>
             <%})%>
@@ -53,7 +54,7 @@
         </div>
         <%}else{%>
         <div class="p-2">
-          <input type="text" name="<%=option.key%>" class="form-control" placeholder="<%=option.guid%>" />
+          <input type="text" name="<%=option.title%>" class="form-control" placeholder="<%=option.guid%>" />
         </div>
         <%}%> <%})%>
         <button type="submit" class="btn btn-danger">انتشار آگهی</button>
