@@ -10,6 +10,7 @@ const { removeProperty } = require("../../common/utils/functions");
 const utf8 = require("utf8");
 class PostController {
   #service;
+  success_message;
   constructor() {
     autoBind(this);
     this.#service = postService;
@@ -68,12 +69,10 @@ class PostController {
         city,
         district,
       });
-      // return res.status(StatusCodes.CREATED).json({
-      //   message: PostMessage.Created,
-      // });
       const posts = await this.#service.find(userId);
 
-      res.render("./pages/panel/posts.ejs", { posts, count: posts.length, success_message: PostMessage.Created, error_message: null });
+      this.success_message = PostMessage.Created;
+      return res.redirect("/post/my");
     } catch (error) {
       console.log(error);
       next(error);
@@ -81,6 +80,10 @@ class PostController {
   }
   async remove(req, res, next) {
     try {
+      const { id } = req.params;
+      await this.#service.remove(id);
+      this.success_message = PostMessage.Deleted;
+      return res.redirect("/post/my");
     } catch (error) {
       next(error);
     }
@@ -90,7 +93,8 @@ class PostController {
       const userId = req.user._id;
 
       const posts = await this.#service.find(userId);
-      return res.render("./pages/panel/posts.ejs", { posts, success_message: null, error_message: null });
+      res.render("./pages/panel/posts.ejs", { posts, success_message: this.success_message, error_message: null });
+      this.success_message = null;
     } catch (error) {
       next(error);
     }
