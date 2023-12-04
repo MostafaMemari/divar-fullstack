@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 const getAddressDetail = async (lat, lng) => {
   const result = await axios
     .get(`${process.env.MAP_IR_URL}?lat=${lat}&lon=${lng}`, {
