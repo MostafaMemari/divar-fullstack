@@ -26,9 +26,6 @@
                   <h6 class="fw-semibold mb-0">عنوان</h6>
                 </th>
                 <th class="border-bottom-0">
-                  <h6 class="fw-semibold mb-0">توضیحات</h6>
-                </th>
-                <th class="border-bottom-0">
                   <h6 class="fw-semibold mb-0">تاریخ انتشار</h6>
                 </th>
                 <th class="border-bottom-0">
@@ -47,7 +44,6 @@
               <tr>
                 <td><%=post._id%></td>
                 <td><%=post.title%></td>
-                <td><%=post.content%></td>
                 <td><%=moment(post.createdAt).locale("fa").format("jDD jMMMM jYYYY")%></td>
                 <td>
                   <form action="/post/delete/<%=post._id%>?_method=delete" method="post" class="d-inline">

@@ -45,7 +45,7 @@ class PostController {
   async create(req, res, next) {
     try {
       const userId = req.user._id;
-      const images = req?.files?.map((image) => image?.path?.slice(7));
+      const images = req?.files?.map((image) => image?.path?.slice(6));
       const { title_post: title, description: content, lat, lng, category } = req.body;
       const { address, province, city, district } = await getAddressDetail(lat, lng);
 
@@ -90,10 +90,19 @@ class PostController {
   async findMyPosts(req, res, next) {
     try {
       const userId = req.user._id;
-
       const posts = await this.#service.find(userId);
       res.render("./pages/panel/posts.ejs", { posts, success_message: this.success_message, error_message: null });
       this.success_message = null;
+    } catch (error) {
+      next(error);
+    }
+  }
+  async showPost(req, res, next) {
+    try {
+      const { id } = req.params;
+      const post = await this.#service.checkExist(id);
+      res.locals.layout = "./layouts/website/main.ejs";
+      res.render("./pages/home/post.ejs", { post });
     } catch (error) {
       next(error);
     }
