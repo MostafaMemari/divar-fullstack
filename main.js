@@ -26,6 +26,10 @@ async function main() {
   app.use(express.static("public"));
   app.use(expressEjsLayouts);
   app.set("view engine", "ejs");
+
+  app.set("layout extractScripts", true);
+  app.set("layout extractStyles", true);
+
   app.set("layout", "./layouts/panel/main.ejs");
 
   app.use(mainRouter);

@@ -30,7 +30,33 @@ class PostService {
   }
   async checkExist(postId) {
     if (!postId || !isValidObjectId(postId)) throw createHttpError.BadRequest(PostMessage.RquestNotValid);
-    const post = await this.#model.findById(postId);
+    const [post] = await this.#model.aggregate([
+      { $match: { _id: new Types.ObjectId(postId) } },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user",
+        },
+      },
+      {
+        $unwind: {
+          path: "$user",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $addFields: {
+          userMobile: "$user.mobile",
+        },
+      },
+      {
+        $project: {
+          user: 0,
+        },
+      },
+    ]);
     if (!post) throw createHttpError.NotFound(PostMessage.NotFound);
     return post;
   }
