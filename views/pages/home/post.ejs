@@ -43,9 +43,26 @@
       </div>
     </div>
     <div class="post-image">
-      <div class="post-thumbnail">
-        <img src="<%=post.images[0] %>" alt="" class="post-thumbnail" width="488px" height="366px" />
+      <!-- Slider main container -->
+      <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <%for(let image of post.images){%>
+          <div class="swiper-slide post-thumbnail">
+            <img src="<%=image %>" alt="" class="post-thumbnail" width="100%" height="400px" />
+          </div>
+          <% } %>
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
       </div>
+
       <hr />
       <div class="post-note">
         <div class="post-note-input">
@@ -73,6 +90,13 @@
   </div>
   <footer></footer>
 </div>
+<style>
+  .swiper {
+    width: 600px;
+    height: 400px;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   const callDetailBtn = document.getElementById("call-detail");
   callDetailBtn.addEventListener("click", () => {
@@ -82,5 +106,27 @@
     }).then((result) => {
       if (result.isConfirmed) window.location.href = "tel://<%=post.userMobile%>";
     });
+  });
+
+  const swiper = new Swiper(".swiper", {
+    // Optional parameters
+    direction: "horizontal",
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+      el: ".swiper-pagination",
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+      el: ".swiper-scrollbar",
+    },
   });
 </script>
