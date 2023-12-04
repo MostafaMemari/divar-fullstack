@@ -68,9 +68,12 @@ class PostController {
         city,
         district,
       });
-      return res.status(StatusCodes.CREATED).json({
-        message: PostMessage.Created,
-      });
+      // return res.status(StatusCodes.CREATED).json({
+      //   message: PostMessage.Created,
+      // });
+      const posts = await this.#service.find(userId);
+
+      res.render("./pages/panel/posts.ejs", { posts, count: posts.length, success_message: PostMessage.Created, error_message: null });
     } catch (error) {
       console.log(error);
       next(error);
@@ -87,7 +90,7 @@ class PostController {
       const userId = req.user._id;
 
       const posts = await this.#service.find(userId);
-      return res.render("./pages/panel/posts.ejs", { posts });
+      return res.render("./pages/panel/posts.ejs", { posts, success_message: null, error_message: null });
     } catch (error) {
       next(error);
     }
