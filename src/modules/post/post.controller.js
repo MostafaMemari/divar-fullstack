@@ -83,6 +83,8 @@ class PostController {
   }
   async find(req, res, next) {
     try {
+      const posts = await this.#service.find();
+      return res.render("./pages/panel/posts.ejs", { posts });
     } catch (error) {
       next(error);
     }

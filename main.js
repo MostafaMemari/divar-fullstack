@@ -7,6 +7,7 @@ const { AllExceptionHandler } = require("./src/common/exception/all-exception.ha
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
+const moment = require("jalali-moment");
 
 dotenv.config();
 
@@ -26,7 +27,7 @@ async function main() {
   app.set("layout", "./layouts/panel/main.ejs");
 
   app.use(mainRouter);
-
+  app.locals.moment = moment;
   SwaggerConfig(app);
   NotFoundHandler(app);
   AllExceptionHandler(app);
