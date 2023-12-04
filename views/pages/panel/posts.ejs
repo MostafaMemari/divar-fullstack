@@ -35,12 +35,13 @@
               </tr>
             </thead>
             <tbody>
+              <% if(posts.length == 0){%>
               <tr>
                 <td colspan="5">
                   <p class="alert alert-warning text-center">شما هیچ آگهی را ثبت نکرده اید</p>
                 </td>
               </tr>
-              <%posts.forEach(post => {%>
+              <% } %> <%posts.forEach(post => {%>
               <tr>
                 <td><%=post._id%></td>
                 <td><%=post.title%></td>

@@ -3,6 +3,7 @@ const PostMessage = Object.freeze({
   Deleted: "post deleted successfully",
   NotFound: "post not found",
   AlreadyExist: "post already exist",
+  RquestNotValid: "request not valid",
 });
 
 module.exports = {
