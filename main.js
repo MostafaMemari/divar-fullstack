@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const expressEjsLayouts = require("express-ejs-layouts");
 const moment = require("jalali-moment");
+var methodOverride = require("method-override");
 
 dotenv.config();
 
@@ -16,10 +17,11 @@ async function main() {
   const port = process.env.PORT;
   require("./src/config/mongoose.config");
 
-  // app.use(morgan("dev"));
+  // app.use(morgan("short"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser(process.env.COOKIE_SECRET_KEY));
+  app.use(methodOverride("_method"));
 
   app.use(express.static("public"));
   app.use(expressEjsLayouts);

@@ -69,7 +69,6 @@ class PostController {
         city,
         district,
       });
-      const posts = await this.#service.find(userId);
 
       this.success_message = PostMessage.Created;
       return res.redirect("/post/my");
